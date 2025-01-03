@@ -2,14 +2,14 @@ import os
 import pathlib
 from datetime import datetime
 
-import requests
+import httpx as requests
 from dotenv import dotenv_values
 from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import login_required
 from sqlalchemy import Float
 
 from app import db
-from app.Forms import ProcessoForm, SearchProc
+from app.forms import ProcessoForm, SearchProc
 from app.misc import format_currency_brl
 from app.models import Assuntos, Classes, Foros, Juizes, Partes, Processos, Varas
 

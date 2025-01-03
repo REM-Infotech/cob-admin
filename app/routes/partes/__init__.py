@@ -6,7 +6,7 @@ from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import login_required
 
 from app import db
-from app.Forms import PessoaForm
+from app.forms import PessoaForm
 from app.misc import formatar_numero
 from app.models import Partes
 

@@ -4,6 +4,7 @@ from dotenv import dotenv_values
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+from .adm import Assuntos, Classes, Clientes, Foros, Juizes, Partes, Processos, Varas
 from .secondaries import admins
 from .users import LicensesUsers, SuperUser, Users
 
@@ -12,6 +13,14 @@ __all__ = [
     Users,
     LicensesUsers,
     SuperUser,
+    Assuntos,
+    Classes,
+    Clientes,
+    Foros,
+    Juizes,
+    Partes,
+    Varas,
+    Processos,
 ]
 
 

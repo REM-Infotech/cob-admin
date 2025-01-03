@@ -14,7 +14,7 @@ from wtforms.validators import DataRequired
 
 from app.models import Assuntos, Classes, Clientes, Foros, Juizes, Partes, Varas
 
-# from app.Forms.proc_adm.defaults import bairros_manaus, cidades_amazonas
+# from app.forms.proc_adm.defaults import bairros_manaus, cidades_amazonas
 
 # import string
 # import random
