@@ -1,3 +1,23 @@
+"""
+This module initializes and configures a Flask application with various extensions,
+blueprints, and security features. It includes the following components:
+
+- SQLAlchemy for database interactions
+- Flask-Mail for email support
+- Flask-Login for user session management
+- Flask-Talisman for security headers and HTTPS enforcement
+- Logging setup for application logs
+
+The AppFactory class provides methods to initialize these components and create
+a Flask application instance with the necessary configurations.
+
+Classes:
+    AppFactory: A factory class for creating and configuring a Flask application instance.
+
+Functions:
+    create_app: A function to create and configure the Flask application instance.
+"""
+
 import os
 from datetime import timedelta
 from importlib import import_module
@@ -45,7 +65,7 @@ class AppFactory:
             and ensuring the presence of necessary tables.
     """
 
-    def init_extensions(self, app: Flask):
+    def init_extensions(self, app: Flask, env_ambient: str = "production"):
 
         db.init_app(app)
         mail.init_app(app)
@@ -55,17 +75,18 @@ class AppFactory:
 
             self.init_database(app, db)
 
-            tlsm.init_app(
-                app,
-                content_security_policy=csp,
-                force_https_permanent=True,
-                force_https=True,
-                session_cookie_http_only=True,
-                session_cookie_samesite="Lax",
-                strict_transport_security_max_age=timedelta(days=31).max.seconds,
-                x_content_type_options=True,
-                x_xss_protection=True,
-            )
+            if env_ambient == "production":
+                tlsm.init_app(
+                    app,
+                    content_security_policy=csp,
+                    force_https_permanent=True,
+                    force_https=True,
+                    session_cookie_http_only=True,
+                    session_cookie_samesite="Lax",
+                    strict_transport_security_max_age=timedelta(days=31).max.seconds,
+                    x_content_type_options=True,
+                    x_xss_protection=True,
+                )
 
             import_module(".routes", __package__)
 
@@ -81,11 +102,12 @@ class AppFactory:
         src_path = os.path.join(os.getcwd(), "static")
         app = Flask(__name__, static_folder=src_path)
 
-        ambient = objects_config[dotenv_values(".env")["AMBIENT_CONFIG"]]
+        env_ambient = dotenv_values(".env")["AMBIENT_CONFIG"]
+        ambient = objects_config[env_ambient]
 
         app.config.from_object(ambient)
 
-        self.init_extensions(app)
+        self.init_extensions(app, env_ambient)
         self.init_blueprints(app)
 
         """ Initialize logs module """

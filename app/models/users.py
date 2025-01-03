@@ -1,3 +1,18 @@
+"""
+This module defines the database models for the application, including Users, SuperUser, and LicensesUsers.
+
+Classes:
+    SuperUser: Represents a superuser in the system.
+    Users: Represents a user in the system, including authentication and relationship with licenses.
+    LicensesUsers: Represents a license associated with a user.
+
+Functions:
+    load_user(user_id: int) -> int: Loads a user by their user ID.
+
+Attributes:
+    salt: The salt used for hashing passwords.
+"""
+
 from datetime import datetime
 from uuid import uuid4
 
@@ -80,8 +95,3 @@ class LicensesUsers(db.Model):
 
     # Relacionamento de muitos para muitos com users
     admins = db.relationship("Users", secondary="admins", backref="admin")
-    bots = db.relationship(
-        "BotsCrawJUD",
-        secondary="execution_bots",
-        backref=db.backref("license", lazy=True),
-    )

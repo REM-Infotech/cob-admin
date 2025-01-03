@@ -5,6 +5,7 @@ description = "Sistema de Gerenciamento de Cobranças Administrativas"
 authors = ["Robotz213 <nicholas@robotz.dev>"]
 license = "MIT"
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -20,6 +21,8 @@ psycopg2-binary = "^2.9.10"
 python-dotenv = "^1.0.1"
 flask-mail = "^0.10.0"
 bcrypt = "^4.2.1"
+eventlet = "^0.38.2"
+clear = "^2.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
