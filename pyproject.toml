@@ -23,6 +23,7 @@ flask-mail = "^0.10.0"
 bcrypt = "^4.2.1"
 eventlet = "^0.38.2"
 clear = "^2.0.0"
+pytz = "^2024.2"
 
 
 [tool.poetry.group.dev.dependencies]
