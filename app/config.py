@@ -137,6 +137,21 @@ class DevelopmentConfig(Config):
     from flask_talisman import DEFAULT_CSP_POLICY
 
     CSP = DEFAULT_CSP_POLICY
+    try:
+        env = dotenv_values(".env")
+
+        # Flask-mail config
+        MAIL_SERVER = env["MAIL_SERVER"]
+        MAIL_PORT = int(env["MAIL_PORT"])
+        MAIL_USE_TLS = env["MAIL_USE_TLS"] in ["True", "true", "TRUE"]
+        MAIL_USE_SSL = env["MAIL_USE_SSL"] in ["True", "true", "TRUE"]
+        MAIL_USERNAME = env["MAIL_USERNAME"]
+        MAIL_PASSWORD = env["MAIL_PASSWORD"]
+        MAIL_DEFAULT_SENDER = env["MAIL_DEFAULT_SENDER"]
+
+    except Exception as e:
+        print(e)
+        raise e
 
 
 class TestingConfig(Config):
@@ -144,5 +159,19 @@ class TestingConfig(Config):
     from flask_talisman import DEFAULT_CSP_POLICY
 
     CSP = DEFAULT_CSP_POLICY
+    try:
+        env = dotenv_values(".env")
 
-    TESTING = True
+        # Flask-mail config
+        MAIL_SERVER = env["MAIL_SERVER"]
+        MAIL_PORT = int(env["MAIL_PORT"])
+        MAIL_USE_TLS = env["MAIL_USE_TLS"] in ["True", "true", "TRUE"]
+        MAIL_USE_SSL = env["MAIL_USE_SSL"] in ["True", "true", "TRUE"]
+        MAIL_USERNAME = env["MAIL_USERNAME"]
+        MAIL_PASSWORD = env["MAIL_PASSWORD"]
+        MAIL_DEFAULT_SENDER = env["MAIL_DEFAULT_SENDER"]
+        TESTING = True
+
+    except Exception as e:
+        print(e)
+        raise e
