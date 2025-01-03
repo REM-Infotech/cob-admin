@@ -4,6 +4,27 @@ import pytz
 
 from app import db
 
+partes_enderecos = db.Table(
+    "partes_enderecos",
+    db.Column("parte_id", db.Integer, db.ForeignKey("partes.id")),
+    db.Column("endereco_id", db.Integer, db.ForeignKey("parte_addresses.id")),
+)
+
+
+class ParteAddresses(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True, unique=True)
+    parte_id = db.Column(db.Integer, db.ForeignKey("partes.id"))
+    endereco = db.Column(db.String(length=64))
+    bairro = db.Column(db.String(length=64))
+    cidade = db.Column(db.String(length=64))
+    estado = db.Column(db.String(length=64))
+    cep = db.Column(db.String(length=64))
+    email = db.Column(db.String(length=64))
+    telefone1 = db.Column(db.String(length=64))
+    telefone2 = db.Column(db.String(length=64))
+    telefone3 = db.Column(db.String(length=64))
+
 
 class Processos(db.Model):
 
@@ -32,45 +53,7 @@ class Partes(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
     nome = db.Column(db.String(length=64), nullable=False)
     cpf_cnpj = db.Column(db.String(length=64))
-    endereco = db.Column(db.String(length=64))
-    bairro = db.Column(db.String(length=64))
-    cidade = db.Column(db.String(length=64))
-    estado = db.Column(db.String(length=64))
-    cep = db.Column(db.String(length=64))
     email = db.Column(db.String(length=64))
-    telefone1 = db.Column(db.String(length=64))
-    telefone2 = db.Column(db.String(length=64))
-    telefone3 = db.Column(db.String(length=64))
-
-
-class Assuntos(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    assunto = db.Column(db.String(length=64), nullable=False)
-
-
-class Classes(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    classe = db.Column(db.String(length=64), nullable=False)
-
-
-class Foros(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    foro = db.Column(db.String(length=64), nullable=False)
-
-
-class Varas(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    vara = db.Column(db.String(length=64), nullable=False)
-
-
-class Juizes(db.Model):
-
-    id = db.Column(db.Integer, primary_key=True, unique=True)
-    juiz = db.Column(db.String(length=64), nullable=False)
 
 
 class Clientes(db.Model):

@@ -37,7 +37,7 @@ codeql-custom-queries-python/
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
-
+remove_cache.py
 # Unit test / coverage reports
 htmlcov/
 .tox/

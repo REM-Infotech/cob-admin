@@ -1,9 +1,9 @@
 <div class="container px-4">
-  <div class="card mt-4 mb-4">
+  <form method="post" name="CadastroProcesso" class="card mt-4 mb-4">
     <div class="card-header mb-3">
       <h1 class="m-3">{{ title }} - {{ func }}</h1>
     </div>
-    <div class="card-body">
+    <div class="card-body row g-6 p-3 align-items-center">
       <div class="container">
         {% if error_messages %}
         {% for message, mensagem in error_messages %}
@@ -13,77 +13,62 @@
         </div>
         {% endfor %}
         {% endif %}
-        <form action="{{ action_url }}" method="post" name="CadastroProcesso">
-          <div class="row mt-2 g-3 bg-primary bg-opacity-25 rounded justify-content-center p-3">
-            {{ form.hidden_tag() }}
 
-            <div class="col-10 mb-3 border border-secondary p-2 border-2 rounded bg-secondary bg-opacity-25">
-              {{ form.numproc.label(class="form-label") }}
-              {{ form.numproc(class="form-control", placeholder=form.numproc.label.text) }}
-              <div class="form-check m-2">
-                {{ form.auto_import(class="form-check-input") }}
-                {{ form.auto_import.label(class="form-check-label", for=form.auto_import.id) }}
-              </div>
-            </div>
-            <div class="col-10 mb-3 border border-secondary p-2 border-2 rounded bg-secondary bg-opacity-25">
-              {{ form.cliente.label(class="form-label") }}
-              {{ form.cliente(**{"class":"form-control", "data-placeholder":form.cliente.label.text}) }}
-            </div>
-            <div class="col-md-5 mb-3 border border-secondary p-2 border-2 rounded bg-secondary bg-opacity-25">
-              {{ form.parte_contraria.label(class="form-label") }}
-              {{ form.parte_contraria(**{"class":"form-control",
-                            "data-placeholder":form.parte_contraria.label.text})}}
-            </div>
-            <div class="col-md-5 mb-3 border border-secondary p-2 border-2 rounded bg-secondary bg-opacity-25">
-              {{ form.adv_contrario.label(class="form-label") }}
-              {{ form.adv_contrario(class="form-control", placeholder=form.adv_contrario.label.text) }}
-            </div>
-            <div class="col-md-5 mb-3 border border-secondary p-2 border-2 rounded bg-secondary bg-opacity-25">
-              {{ form.assunto.label(class="form-label") }}
-              {{ form.assunto(class="form-control", placeholder=form.assunto.label.text) }}
-            </div>
-            <div class="col-md-5 mb-3 border border-secondary p-2 border-2 rounded bg-secondary bg-opacity-25">
-              {{ form.classe.label(class="form-label") }}
-              {{ form.classe(class="form-control", placeholder=form.classe.label.text) }}
-            </div>
-            <div class="col-md-5 mb-3 border border-secondary p-2 border-2 rounded bg-secondary bg-opacity-25">
-              {{ form.foro.label(class="form-label") }}
-              {{ form.foro(class="form-control", placeholder=form.foro.label.text) }}
-            </div>
-            <div class="col-md-5 mb-3 border border-secondary p-2 border-2 rounded bg-secondary bg-opacity-25">
-              {{ form.vara.label(class="form-label") }}
-              {{ form.vara(class="form-control", placeholder=form.vara.label.text) }}
-            </div>
-            <div class="col-md-5 mb-3 border border-secondary p-2 border-2 rounded bg-secondary bg-opacity-25">
-              {{ form.juiz.label(class="form-label") }}
-              {{ form.juiz(class="form-control", placeholder=form.juiz.label.text) }}
-            </div>
-            <div class="col-md-5 mb-3 border border-secondary p-2 border-2 rounded bg-secondary bg-opacity-25">
-              {{ form.area.label(class="form-label") }}
-              {{ form.area(class="form-control", placeholder=form.area.label.text) }}
-            </div>
-            <div class="col-10 mb-3 border border-secondary p-2 border-2 rounded bg-secondary bg-opacity-25">
-              {{ form.valor_causa.label(class="form-label") }}
-              {{ form.valor_causa(class="form-control", placeholder=form.valor_causa.label.text,
-                            oninput="formatarComoMoeda(this)") }}
-            </div>
-            <div class="col-md-5 mb-3 border border-secondary p-2 border-2 rounded bg-secondary bg-opacity-25">
-              {{ form.data_cadastro.label(class="form-label") }}
-              {{ form.data_cadastro(class="form-control", placeholder=form.data_cadastro.label.text,
-                            disabled=True) }}
-            </div>
-            <div class="col-md-5 mb-3 border border-secondary p-2 border-2 rounded bg-secondary bg-opacity-25">
-              {{ form.data_distribuicao.label(class="form-label") }}
-              {{ form.data_distribuicao(class="form-control",
-                            placeholder=form.data_distribuicao.label.text) }}
-            </div>
+      </div>
+      {{ form.hidden_tag() }}
+      <div class="col-md-12">
+        <div class="mb-3 p-2 border border-3 border-secondary border-opacity-75 rounded">
+          <div class="form-floating mb-3">
+            {{ form.numproc(class="form-control", placeholder="...") }}
+            {{ form.numproc.label(for=form.numproc.id) }}
           </div>
-          <hr>
-          <div class="d-grid gap-2 mb-3">
-            {{ form.submit(class="fst-italic fs-5 btn btn-success fw-bold") }}
+          <div class="form-check mb-3">
+            {{ form.automake(class="form-check-input", id="flexCheckDefault") }}
+            {{ form.automake.label(for=form.automake.id, class="form-check-label") }}
           </div>
-        </form>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3 p-2 border border-3 border-secondary border-opacity-75 rounded">
+          {{ form.cliente.label(for=form.numproc.id, class="form-label") }}
+          {{ form.cliente(class="form-select") }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3 p-2 border border-3 border-secondary border-opacity-75 rounded">
+          {{ form.parte_contraria.label(for=form.parte_contraria.id, class="form-label") }}
+          {{ form.parte_contraria(class="form-select") }}
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3 p-2 border border-3 border-secondary border-opacity-75 rounded">
+          <div class="form-floating mb-3">
+            {{ form.valor_debito(class="form-control", placeholder="...") }}
+            {{ form.valor_debito.label(for=form.valor_debito.id) }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3 p-2 border border-3 border-secondary border-opacity-75 rounded">
+          <div class="form-floating mb-3">
+            {{ form.data_cadastro(class="form-control", placeholder="...") }}
+            {{ form.data_cadastro.label(for=form.data_cadastro.id) }}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="mb-3 p-2 border border-3 border-secondary border-opacity-75 rounded">
+          <div class="form-floating mb-3">
+            {{ form.description(class="form-control", placeholder="...") }}
+            {{ form.description.label(for=form.description.id) }}
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="card-footer">
+      <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-success">Salvar</button>
+      </div>
+    </div>
+  </form>
 </div>

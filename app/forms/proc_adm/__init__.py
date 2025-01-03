@@ -9,10 +9,9 @@ from wtforms import (
     SelectField,
     StringField,
     SubmitField,
+    TextAreaField,
 )
 from wtforms.validators import DataRequired
-
-from app.models import Assuntos, Classes, Clientes, Foros, Juizes, Partes, Varas
 
 # from app.forms.proc_adm.defaults import bairros_manaus, cidades_amazonas
 
@@ -43,54 +42,36 @@ class SearchProc(FlaskForm):
 
 class ProcessoForm(FlaskForm):
 
-    numproc = StringField("Número do Processo *", validators=[DataRequired()])
-    auto_import = BooleanField("Importar Automaticamente dados do Processo")
+    numproc = StringField("Número do Processo *")
+    automake = BooleanField("Criar Dinamicamente número do processo")
     cliente = SelectField(
         "Cliente",
-        choices=[],
-        validators=[DataRequired("Selecione o cliente do processo!")],
+        choices=[("Selecione", "Selecione")],
     )
-    parte_contraria = SelectField("Parte Contrária", choices=[("vazio", "Vazio")])
-    adv_contrario = StringField("Advogado Parte Contrária")
-    assunto = SelectField("Assunto", choices=[("vazio", "Vazio")])
-    classe = SelectField("Classe", choices=[("vazio", "Vazio")])
-    foro = SelectField("Foro", choices=[("vazio", "Vazio")])
-    vara = SelectField("Vara", choices=[("vazio", "Vazio")])
-    juiz = SelectField("Juiz", choices=[("vazio", "Vazio")])
-    area = StringField("Área")
-    valor_causa = StringField("Valor da Causa")
-    data_distribuicao = DateField("Data Distribuição")
+    parte_contraria = SelectField(
+        "Parte Contrária", choices=[("Selecione", "Selecione")]
+    )
+    description = TextAreaField("Descrição")
+    valor_debito = StringField("Valor Total Débito")
     data_cadastro = DateField(
-        "Data Cadastro", default=datetime.now(pytz.timezone("Etc/GMT+4")).date()
+        "Data Cadastro", default=datetime.now(pytz.timezone("America/Manaus")).date()
     )
     submit = SubmitField("Salvar")
 
-    def __init__(self, *args, **kwargs):
+    def __init__(
+        self,
+        partes_contra: list[tuple[str, str]] = None,
+        clientes: list[tuple[str, str]] = None,
+        *args,
+        **kwargs
+    ):
         super(ProcessoForm, self).__init__(*args, **kwargs)
 
-        self.assunto.choices.extend(
-            [(Assunto.assunto, Assunto.assunto) for Assunto in Assuntos.query.all()]
-        )
+        if partes_contra:
+            self.parte_contraria.choices.extend(partes_contra)
 
-        self.cliente.choices.extend(
-            [(Cliente.cliente, Cliente.cliente) for Cliente in Clientes.query.all()]
-        )
-
-        self.classe.choices.extend(
-            [(Classe.classe, Classe.classe) for Classe in Classes.query.all()]
-        )
-
-        self.foro.choices.extend([(Foro.foro, Foro.foro) for Foro in Foros.query.all()])
-
-        self.vara.choices.extend([(Vara.vara, Vara.vara) for Vara in Varas.query.all()])
-
-        self.juiz.choices.extend(
-            [(Juiz.juiz, Juiz.juiz) for Juiz in Juizes.query.all()]
-        )
-
-        parte_contrariaes = [(Parte.nome, Parte.nome) for Parte in Partes.query.all()]
-        if parte_contrariaes:
-            self.parte_contraria.choices.extend(parte_contrariaes)
+        if clientes:
+            self.cliente.choices.extend(clientes)
 
 
 class PessoaForm(FlaskForm):

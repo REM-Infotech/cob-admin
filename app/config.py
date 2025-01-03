@@ -10,6 +10,7 @@ class Config(object):
     DEBUG: bool = False
     TESTING: bool = False
     SECRET_KEY: str = secrets.token_hex()
+    TEMPLATES_AUTO_RELOAD: bool = False
 
     # FLASK-MAIL CONFIG
     MAIL_SERVER: str = ""
@@ -148,6 +149,8 @@ class DevelopmentConfig(Config):
         MAIL_USERNAME = env["MAIL_USERNAME"]
         MAIL_PASSWORD = env["MAIL_PASSWORD"]
         MAIL_DEFAULT_SENDER = env["MAIL_DEFAULT_SENDER"]
+
+        TEMPLATES_AUTO_RELOAD = True
 
     except Exception as e:
         print(e)
