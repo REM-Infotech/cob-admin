@@ -1,4 +1,4 @@
-<div class="container-fluid px-4">
+<div class="container px-4">
   <div class="card mt-4 mb-3">
     <div class="card-header mb-3">
       <h1 class="mb-3">{{ title }}</h1>
@@ -9,13 +9,14 @@
         </span>
         <span class="text">Cadastrar</span>
       </a>
-      <button type="button" data-bs-toggle="modal" class="btn btn-warning mb-3" data-bs-target="#importarquivo">
+      <button type="button" data-bs-toggle="modal" class="btn btn-secondary btn-icon-split m-1"
+        data-bs-target="#importarquivo">
         <span class="icon text-white-50">
           <i class="fa-solid fa-file-import"></i>
         </span>
         <span class="text">Import em lotes</span>
       </button>
-      <a href="#" class="btn btn-primary mb-3">
+      <a href="#" class="btn btn-primary btn-icon-split m-1">
         <span class="icon text-white-50">
           <i class="fa-solid fa-file-csv"></i>
         </span>
@@ -74,14 +75,15 @@
                   <td>{{ item.data_cadastro.strftime('%d/%m/%Y') }}</td>
                   <td>{{ format_currency_brl(item.valor_causa).replace("\\xa", "") }}</td>
                   <td>
-                    <button type="button" id="DeleteEpiButton" class="btn btn-danger btn-sm mb-2" hx-post="#!"
-                      hx-trigger="click" hx-target="#results">
+                    <button type="button" id="DeleteEpiButton" class="btn btn-danger btn-icon-split btn-sm mb-2"
+                      hx-post="#!" hx-trigger="click" hx-target="#results">
                       <span class="icon text-white-50">
                         <i class="fa-solid fa-trash"></i>
                       </span>
                       <span class="text">Deletar</span>
                     </button>
-                    <a href="{{ url_for('procs.editar', id=item.id) }}" class="btn btn-warning btn-sm mb-2">
+                    <a href="{{ url_for('procs.editar', id=item.id) }}"
+                      class="btn btn-danger btn-icon-split btn-sm mb-2">
                       <span class="icon text-white-50">
                         <i class="fa-solid fa-pen"></i>
                       </span>
