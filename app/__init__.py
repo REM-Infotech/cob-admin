@@ -18,7 +18,6 @@ Functions:
     create_app: A function to create and configure the Flask application instance.
 """
 
-import os
 from datetime import timedelta
 from importlib import import_module
 from pathlib import Path
@@ -65,6 +64,32 @@ class AppFactory:
             and ensuring the presence of necessary tables.
     """
 
+    def create_app(self) -> Flask:
+        """
+        Create and configure the Flask application.
+        This function initializes the Flask application with the necessary
+        configurations, extensions, blueprints, and logging.
+        Returns:
+            Flask: The configured Flask application instance.
+        """
+
+        src_path = Path(__file__).parent.resolve().joinpath("static")
+        app = Flask(__name__, static_folder=src_path)
+
+        env_ambient = dotenv_values(".env")["AMBIENT_CONFIG"]
+        ambient = objects_config[env_ambient]
+
+        app.config.from_object(ambient)
+
+        self.init_extensions(app, env_ambient)
+        self.init_blueprints(app)
+
+        """ Initialize logs module """
+
+        app.logger = initialize_logging()
+
+        return app
+
     def init_extensions(self, app: Flask, env_ambient: str = "production"):
 
         db.init_app(app)
@@ -90,32 +115,6 @@ class AppFactory:
 
             import_module(".routes", __package__)
 
-    def create_app(self) -> Flask:
-        """
-        Create and configure the Flask application.
-        This function initializes the Flask application with the necessary
-        configurations, extensions, blueprints, and logging.
-        Returns:
-            Flask: The configured Flask application instance.
-        """
-
-        src_path = os.path.join(os.getcwd(), "static")
-        app = Flask(__name__, static_folder=src_path)
-
-        env_ambient = dotenv_values(".env")["AMBIENT_CONFIG"]
-        ambient = objects_config[env_ambient]
-
-        app.config.from_object(ambient)
-
-        self.init_extensions(app, env_ambient)
-        self.init_blueprints(app)
-
-        """ Initialize logs module """
-
-        app.logger = initialize_logging()
-
-        return app
-
     def init_blueprints(self, app: Flask):
         """
         Initialize and register blueprints with the Flask application.
@@ -125,13 +124,9 @@ class AppFactory:
             app (Flask): The Flask application instance to register blueprints with.
         """
 
-        from app.routes import auth
+        from app.routes import auth, dash, index
 
-        listBlueprints = [
-            auth,
-        ]
-
-        for bp in listBlueprints:
+        for bp in [auth, index, dash]:
             app.register_blueprint(bp)
 
     def init_database(self, app: Flask, db: SQLAlchemy):
