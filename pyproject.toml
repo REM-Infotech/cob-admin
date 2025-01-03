@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "cob-admin"
+version = "0.0.1-alpha"
+description = "Sistema de Gerenciamento de Cobranças Administrativas"
+authors = ["Robotz213 <nicholas@robotz.dev>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flask = "^3.1.0"
+flask-wtf = "^1.2.2"
+flask-sqlalchemy = "^3.1.1"
+flask-login = "^0.6.3"
+flask-talisman = "^1.1.0"
+pandas = "^2.2.3"
+openpyxl = "^3.1.5"
+psycopg2 = "^2.9.10"
+psycopg2-binary = "^2.9.10"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
