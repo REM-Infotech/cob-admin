@@ -38,7 +38,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename = 'assets/img/favicon.ico') }}" type="image/x-icon">
   </head>
 
-  <body class="justify-content-center sb-nav-fixed bg-primary">
+  <body class="justify-content-center sb-nav-fixed bg-purple">
     {% include 'includes/navbar.html' %}
     <div id="layoutSidenav">
       {% include 'includes/sidebar.html' %}
@@ -68,9 +68,9 @@
     {% include 'includes/loading.html' %}
     <script src="{{ url_for('static', filename = 'js/scripts.js') }}"></script>
     {% if request.endpoint == 'dash.dashboard' %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"
-      integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css"
+      integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="{{ url_for('static', filename = 'js/charts/BarraFuncionario.js' ) }}"></script>
     <script src="{{ url_for('static', filename = 'js/charts/BarraChartDiaSemana.js' ) }}"></script>
     {% endif %}
